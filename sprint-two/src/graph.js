@@ -12,34 +12,31 @@ Graph.prototype.addNode = function(node) {
   // input node
   // create a object node
   // add to storage object
+  // Time Complexity : constant;
   this.storage[node] = [];
-  // this.storage[node].value = node;
-  // this.storage[node].next = null;
+
 };
 
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node) {
-  // if (this.storage[node].value === node) {
-  //   return true;
-  // }
-  if (this.storage.hasOwnProperty(node)) {
-    return true;
-  }
-  return false;
-
-
+  // Time Complexity: linear?
+  return (this.storage.hasOwnProperty(node));
 };
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
-
+  // Time Complexity: linear;
+  while (this.storage[node].length) {
+    var index = this.storage[node].pop();
+    this.removeEdge(node, index);
+  }
   delete this.storage[node];
-
-
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
+  //Time Complexity : linear;/
+  // return (this.storage[fromNode].includes(toNode));
   if (this.storage[fromNode]) {
     if (this.storage[fromNode].includes(toNode)) {
       return true;
@@ -54,25 +51,31 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
 
 // Connects two nodes in a graph by adding an edge between them.
 Graph.prototype.addEdge = function(fromNode, toNode) {
-
+  // Time Complexity: constant;
   this.storage[fromNode].push(toNode);
-  this.storage[fromNode].push(fromNode);
+  this.storage[toNode].push(fromNode);
 
 };
 
 
 // Remove an edge between any two specified (by value) nodes.
 Graph.prototype.removeEdge = function(fromNode, toNode) {
+  // Time Complexity: linear;
+  this.storage[fromNode] = _.filter(this.storage[fromNode], function(num) {
+    toNode !== num;
+  });
+  this.storage[toNode] = _.filter(this.storage[toNode], function(num) {
+    fromNode !== num;
+  });
 
-  var i = this.storage[fromNode].indexOf(toNode);
-  this.storage[fromNode].splice(i, 1);
-
-  var j = this.storage[toNode].indexOf(fromNode);
-  this.storage[toNode].splice(j, 1);
 };
 
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
+  //Time Complxity : linear;
+  for (var key in this.storage) {
+    cb(key);
+  }
 };
 
 /*
