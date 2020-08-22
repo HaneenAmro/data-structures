@@ -1,4 +1,4 @@
-var Tree = function(value) {
+var Tree = function (value) {
   var newTree = {};
   newTree.value = value;
   // your code here
@@ -10,7 +10,7 @@ var Tree = function(value) {
 
 var treeMethods = {};
 
-treeMethods.addChild = function(value) {
+treeMethods.addChild = function (value) {
   // callback Tree function with a parameter value to crate a new node
   // push it to children arra
   this.children.push(Tree(value));
@@ -18,7 +18,7 @@ treeMethods.addChild = function(value) {
   //time Complexity logarthimic
 };
 
-treeMethods.contains = function(target) {
+treeMethods.contains = function (target) {
   // start with root node if the value of the node equal target return true
 
   if (this.value === target) {
